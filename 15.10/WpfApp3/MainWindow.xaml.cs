@@ -16,9 +16,6 @@ using System.Data.SqlClient;
 
 namespace WpfApp3
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -28,15 +25,20 @@ namespace WpfApp3
             using (SqlConnection conn = new SqlConnection())
             {
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = @"DANIIL\SQLEXPRESS";
-                builder.InitialCatalog = "VegetablesAndFruits";
+                builder.DataSource = @"VLADIMIR\SQLEXPRESS";
+                builder.InitialCatalog = "VegAndFrut";
                 builder.IntegratedSecurity = true;
                 conn.ConnectionString = builder.ConnectionString;
 
                 conn.Open();
 
-                // Задание 3.1
-                using (SqlCommand command1 = new SqlCommand("SELECT * FROM VegetablesAndFruits", conn))
+
+
+                // Задание 3
+                
+                // 1
+                
+                using (SqlCommand command1 = new SqlCommand("SELECT * FROM VegAndFrut", conn))
                 using (SqlDataReader reader1 = command1.ExecuteReader())
                 {
                     TextBlock1.Text += "\nId Name Type Color CalorieContent\n";
@@ -46,8 +48,11 @@ namespace WpfApp3
                     }
                 } 
 
-                // Задание 3.2
-                using (SqlCommand command2 = new SqlCommand("SELECT Name FROM VegetablesAndFruits", conn))
+
+
+                // 2
+                
+                using (SqlCommand command2 = new SqlCommand("SELECT Name FROM VegAndFrut", conn))
                 using (SqlDataReader reader2 = command2.ExecuteReader())
                 {
                     TextBlock2.Text += "\nName\n";
@@ -57,8 +62,11 @@ namespace WpfApp3
                     }
                 }
 
-                // Задание 3.3
-                using (SqlCommand command3 = new SqlCommand("SELECT Color FROM VegetablesAndFruits", conn))
+
+
+                // 3
+                
+                using (SqlCommand command3 = new SqlCommand("SELECT Color FROM VegAndFrut", conn))
                 using (SqlDataReader reader3 = command3.ExecuteReader())
                 {
                     TextBlock3.Text += "\nColor\n";
@@ -68,8 +76,11 @@ namespace WpfApp3
                     }
                 }
 
-                // Задание 3.4
-                using (SqlCommand command4 = new SqlCommand("SELECT MAX(CalorieContent) FROM VegetablesAndFruits", conn))
+
+
+                // 4
+                
+                using (SqlCommand command4 = new SqlCommand("SELECT MAX(CalorieContent) FROM VegAndFrut", conn))
                 using (SqlDataReader reader4 = command4.ExecuteReader())
                 {
                     TextBlock4.Text += "\nMaxCalorieContent\n";
@@ -79,8 +90,11 @@ namespace WpfApp3
                     }
                 }
 
-                // Задание 3.5
-                using (SqlCommand command5 = new SqlCommand("SELECT MIN(CalorieContent) FROM VegetablesAndFruits", conn))
+
+
+                // 5
+                
+                using (SqlCommand command5 = new SqlCommand("SELECT MIN(CalorieContent) FROM VegAndFrut", conn))
                 using (SqlDataReader reader5 = command5.ExecuteReader())
                 {
                     TextBlock5.Text += "\nMinCalorieContent\n";
@@ -90,8 +104,11 @@ namespace WpfApp3
                     }
                 }
 
-                // Задание 3.6
-                using (SqlCommand command6 = new SqlCommand("SELECT AVG(CalorieContent) FROM VegetablesAndFruits", conn))
+
+
+                // 6
+                
+                using (SqlCommand command6 = new SqlCommand("SELECT AVG(CalorieContent) FROM VegAndFrut", conn))
                 using (SqlDataReader reader6 = command6.ExecuteReader())
                 {
                     TextBlock6.Text += "\nAverageCalorieContent\n";
@@ -101,8 +118,12 @@ namespace WpfApp3
                     }
                 }
 
-                // Задание 4.1
-                using (SqlCommand command7 = new SqlCommand("SELECT Name FROM VegetablesAndFruits WHERE Type = 'Vegetable'", conn))
+
+                
+                // Задание 4
+                
+                //1
+                using (SqlCommand command7 = new SqlCommand("SELECT Name FROM VegAndFrut WHERE Type = 'Vegetable'", conn))
                 using (SqlDataReader reader7 = command7.ExecuteReader())
                 {
                     TextBlock7.Text += "\nQuantityOfVegetables\n";
@@ -114,8 +135,11 @@ namespace WpfApp3
                     TextBlock7.Text += $"{quantity}\n";
                 }
 
-                // Задание 4.2
-                using (SqlCommand command8 = new SqlCommand("SELECT Name FROM VegetablesAndFruits WHERE Type = 'Fruit'", conn))
+                
+
+                // 2
+                
+                using (SqlCommand command8 = new SqlCommand("SELECT Name FROM VegAndFrut WHERE Type = 'Fruit'", conn))
                 using (SqlDataReader reader8 = command8.ExecuteReader())
                 {
                     TextBlock8.Text += "\nQuantityOfFruits\n";
@@ -126,10 +150,12 @@ namespace WpfApp3
                     }
                     TextBlock8.Text += $"{quantity}\n";
                 }
+                
 
-                // Задание 4.3
+
+                // 3
                 string color = "Green";
-                using (SqlCommand command9 = new SqlCommand($"SELECT Name FROM VegetablesAndFruits WHERE Color = '{color}'", conn))
+                using (SqlCommand command9 = new SqlCommand($"SELECT Name FROM VegAndFrut WHERE Color = '{color}'", conn))
                 using (SqlDataReader reader9 = command9.ExecuteReader())
                 {
                     TextBlock9.Text += $"\nQuantityOf{color}\n";
@@ -139,21 +165,29 @@ namespace WpfApp3
                         quantity++;
                     }
                     TextBlock9.Text += $"{quantity}\n";
+
+                    
                 }
 
-                // Задание 4.4
+
+
+                // 4
+                
                 TextBlock10.Text += $"\nRed Green Yellow Orange\n";
-                using (SqlCommand command10 = new SqlCommand($"SELECT Name FROM VegetablesAndFruits WHERE Color = 'Red'", conn))
+                using (SqlCommand command10 = new SqlCommand($"SELECT Name FROM VegAndFrut WHERE Color = 'Red'", conn))
                 using (SqlDataReader reader10 = command10.ExecuteReader())
                 {
                     int quantityOfRed = 0;
                     while (reader10.Read())
                     {
                         quantityOfRed++;
+
+                        
                     }
                     TextBlock10.Text += $"{quantityOfRed}      ";
                 }
-                using (SqlCommand command11 = new SqlCommand($"SELECT Name FROM VegetablesAndFruits WHERE Color = 'Green'", conn))
+                
+                using (SqlCommand command11 = new SqlCommand($"SELECT Name FROM VegAndFrut WHERE Color = 'Green'", conn))
                 using (SqlDataReader reader11 = command11.ExecuteReader())
                 {
                     int quantityOfGreen = 0;
@@ -163,8 +197,11 @@ namespace WpfApp3
                     }
                     TextBlock10.Text += $"{quantityOfGreen}        ";
                 }
-                using (SqlCommand command12 = new SqlCommand($"SELECT Name FROM VegetablesAndFruits WHERE Color = 'Yellow'", conn))
+                
+                using (SqlCommand command12 = new SqlCommand($"SELECT Name FROM VegAndFrut WHERE Color = 'Yellow'", conn))
+                
                 using (SqlDataReader reader12 = command12.ExecuteReader())
+                
                 {
                     int quantityOfYellow = 0;
                     while (reader12.Read())
@@ -172,8 +209,10 @@ namespace WpfApp3
                         quantityOfYellow++;
                     }
                     TextBlock10.Text += $"{quantityOfYellow}         ";
+                    
                 }
-                using (SqlCommand command13 = new SqlCommand($"SELECT Name FROM VegetablesAndFruits WHERE Color = 'Orange'", conn))
+                using (SqlCommand command13 = new SqlCommand($"SELECT Name FROM VegAndFrut WHERE Color = 'Orange'", conn))
+                
                 using (SqlDataReader reader13 = command13.ExecuteReader())
                 {
                     int quantityOfOrange = 0;
@@ -184,36 +223,52 @@ namespace WpfApp3
                     TextBlock10.Text += $"{quantityOfOrange}";
                 }
 
-                // Задание 4.5
+
+
+                // 5
+                
                 int Calories1 = 53;
-                using (SqlCommand command14 = new SqlCommand($"SELECT Name, CalorieContent FROM VegetablesAndFruits WHERE CalorieContent < {Calories1}", conn))
+                
+                using (SqlCommand command14 = new SqlCommand($"SELECT Name, CalorieContent FROM VegAndFrut WHERE CalorieContent < {Calories1}", conn))
+                
                 using (SqlDataReader reader14 = command14.ExecuteReader())
                 {
                     TextBlock11.Text += $"\nProduceWithCalories < {Calories1}\n";
                     while (reader14.Read())
                     {
                         TextBlock11.Text += $"{reader14[0].ToString()} {reader14[1].ToString()}\n";
+                        
                     }
                 }
 
-                // Задание 4.6
+
+
+                // 6
+                
                 int Calories2 = 37;
-                using (SqlCommand command15 = new SqlCommand($"SELECT Name, CalorieContent FROM VegetablesAndFruits WHERE CalorieContent > {Calories2}", conn))
+                using (SqlCommand command15 = new SqlCommand($"SELECT Name, CalorieContent FROM VegAndFrut WHERE CalorieContent > {Calories2}", conn))
                 using (SqlDataReader reader15 = command15.ExecuteReader())
                 {
                     TextBlock12.Text += $"\nProduceWithCalories > {Calories2}\n";
                     while (reader15.Read())
                     {
+                    
                         TextBlock12.Text += $"{reader15[0].ToString()} {reader15[1].ToString()} \n";
                     }
                 }
 
-                // Задание 4.7
+
+
+                // 7
+
+                
                 int Calories3 = 14;
                 int Calories4 = 43;
-                using (SqlCommand command16 = new SqlCommand($"SELECT Name, CalorieContent FROM VegetablesAndFruits WHERE CalorieContent > {Calories3} AND CalorieContent < {Calories4}", conn))
+                using (SqlCommand command16 = new SqlCommand($"SELECT Name, CalorieContent FROM VegAndFrut WHERE CalorieContent > {Calories3} AND CalorieContent < {Calories4}", conn))
+                
                 using (SqlDataReader reader16 = command16.ExecuteReader())
                 {
+                
                     TextBlock13.Text += $"\n{Calories3} > ProduceWithCalories > {Calories4}\n";
                     while (reader16.Read())
                     {
@@ -221,8 +276,11 @@ namespace WpfApp3
                     }
                 }
 
-                // Задание 4.8
-                using (SqlCommand command17 = new SqlCommand($"SELECT Name, Color FROM VegetablesAndFruits WHERE Color = 'Red' OR Color = 'Yellow'", conn))
+                
+
+                // 8
+                
+                using (SqlCommand command17 = new SqlCommand($"SELECT Name, Color FROM VegAndFrut WHERE Color = 'Red' OR Color = 'Yellow'", conn))
                 using (SqlDataReader reader17 = command17.ExecuteReader())
                 {
                     TextBlock14.Text += $"\nRedAndYellowProduce\n";
